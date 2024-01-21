@@ -22,9 +22,12 @@ type HTTPServer struct {
 
 func MustLoad() *Config {
 	path := fetchConfigPath()
+	if path == "" {
+		panic("config path is empty")
+	}
 
 	if _, err := os.Stat(path); err != nil {
-		log.Panicf("error opening config file: %w:", panic)
+		log.Panicf("error opening config file: %w:", err)
 	}
 
 	var cfg Config
